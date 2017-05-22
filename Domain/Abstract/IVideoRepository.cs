@@ -8,7 +8,7 @@ namespace Domain.Abstract
 {
     public interface IVideoRepository
     {
-        IEnumerable<Entities.Video> Videos { get; }
+        IEnumerable<Entities.Video> video { get; }
 
     }
 }

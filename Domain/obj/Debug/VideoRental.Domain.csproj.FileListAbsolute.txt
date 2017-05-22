@@ -16,3 +16,8 @@ E:\VS's projects\VideoRental\Domain\bin\Debug\System.Web.WebPages.Razor.xml
 E:\VS's projects\VideoRental\Domain\obj\Debug\VideoRental.Domain.csprojResolveAssemblyReference.cache
 E:\VS's projects\VideoRental\Domain\obj\Debug\Domain.dll
 E:\VS's projects\VideoRental\Domain\obj\Debug\Domain.pdb
+E:\VS's projects\VideoRental\Domain\bin\Debug\Domain.dll.config
+E:\VS's projects\VideoRental\Domain\bin\Debug\EntityFramework.dll
+E:\VS's projects\VideoRental\Domain\bin\Debug\EntityFramework.SqlServer.dll
+E:\VS's projects\VideoRental\Domain\bin\Debug\EntityFramework.xml
+E:\VS's projects\VideoRental\Domain\bin\Debug\EntityFramework.SqlServer.xml

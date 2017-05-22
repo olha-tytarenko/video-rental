@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Moq;
 using Ninject;
 using Domain.Abstract;
+using Domain.Concrete;
 using Domain.Entities;
 
 namespace WebUI.Infrastructure
@@ -32,14 +33,7 @@ namespace WebUI.Infrastructure
 
         private void AddBindings()
         {
-            Mock<IVideoRepository> mock = new Mock<IVideoRepository>();
-            mock.Setup(m => m.Videos).Returns(new List<Video>
-            {
-                new Video { Name = "SimCity", Price = 1499 },
-                new Video { Name = "TITANFALL", Price=2299 },
-                new Video { Name = "Battlefield 4", Price=899.4M }
-            });
-            kernel.Bind<IVideoRepository>().ToConstant(mock.Object);
+            kernel.Bind<IVideoRepository>().To<EFVideoRepository>();
         }
     }
 }

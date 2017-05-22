@@ -64,3 +64,7 @@ E:\VS's projects\VideoRental\WebUI\bin\ru\System.Web.Mvc.resources.dll
 E:\VS's projects\VideoRental\WebUI\obj\Debug\VideoRental.WebUI.csprojResolveAssemblyReference.cache
 E:\VS's projects\VideoRental\WebUI\obj\Debug\WebUI.dll
 E:\VS's projects\VideoRental\WebUI\obj\Debug\WebUI.pdb
+E:\VS's projects\VideoRental\WebUI\bin\EntityFramework.dll
+E:\VS's projects\VideoRental\WebUI\bin\EntityFramework.SqlServer.dll
+E:\VS's projects\VideoRental\WebUI\bin\EntityFramework.xml
+E:\VS's projects\VideoRental\WebUI\bin\EntityFramework.SqlServer.xml

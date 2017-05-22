@@ -18,7 +18,7 @@ namespace WebUI.Controllers
 
         public ViewResult List()
         {
-            return View(repository.Videos);
+            return View(repository.video);
         }
     }
 }

@@ -8,11 +8,13 @@ namespace Domain.Entities
 {
     public class Video
     {
-        public int VideoId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Genre { get; set; }
-        public decimal Price { get; set; }
-        public string PictureURL { get; set; }
+        public int video_id { get; set; }
+        public string video_name { get; set; }
+        public int video_yaer { get; set; }
+        public string video_description { get; set; }
+        public decimal video_price_per_day { get; set; }
+        public int video_quantity { get; set; }
+        public string video_cover_url { get; set; }
+        public string video_country { get; set; }
     }
 }
