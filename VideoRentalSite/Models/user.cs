@@ -11,7 +11,8 @@ namespace VideoRentalSite.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class user
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,10 +20,15 @@ namespace VideoRentalSite.Models
         {
             this.order = new HashSet<order>();
         }
-    
+        [Key]
         public int user_id { get; set; }
+        [Display(Name ="Имя")]
         public string user_name { get; set; }
+        [Display(Name ="e-mail")]
+        [DataType(DataType.EmailAddress)]
         public string user_email { get; set; }
+        [Display(Name ="Пароль")]
+        [DataType(DataType.Password)]
         public string user_password { get; set; }
         public string user_status { get; set; }
     
