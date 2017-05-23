@@ -1,9 +1,25 @@
 ﻿@model VideoRentalSite.Models.video
+@using WebMatrix.Data;
 
 @{
     ViewBag.Title = "Details";
 }
 
+@{ 
+    string connectionString = @"VideoRentalDatabase";
+    string genreName = "";
+    using (var db = Database.Open(connectionString))
+    {
+
+        IEnumerable<dynamic> genre = db.Query("SELECT genre.genre_name FROM genre, videogenre WHERE " +
+            "videogenre.videogenre_id_genre = genre.genre_id and videogenre.videogenre_id_video = " + Model.video_id);
+
+        foreach (var item in genre)
+        {
+            genreName += @item.genre_name + " ";
+        }
+    }
+}
 <h2>Details</h2>
 
 <div>
@@ -65,6 +81,14 @@
         <dd>
             @Html.DisplayFor(model => model.video_country)
         </dd>
+        <dt>
+            Жанр:
+        </dt>
+
+        <dd>
+            @genreName
+        </dd>
+
 
     </dl>
 </div>

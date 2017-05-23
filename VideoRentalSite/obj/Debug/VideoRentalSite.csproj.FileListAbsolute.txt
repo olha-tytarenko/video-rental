@@ -98,3 +98,4 @@ E:\VS's projects\VideoRental\VideoRentalSite\bin\ru\Microsoft.Owin.Security.Micr
 E:\VS's projects\VideoRental\VideoRentalSite\obj\Debug\VideoRentalSite.csprojResolveAssemblyReference.cache
 E:\VS's projects\VideoRental\VideoRentalSite\obj\Debug\VideoRentalSite.dll
 E:\VS's projects\VideoRental\VideoRentalSite\obj\Debug\VideoRentalSite.pdb
+E:\VS's projects\VideoRental\VideoRentalSite\bin\WebMatrix.Data.xml
