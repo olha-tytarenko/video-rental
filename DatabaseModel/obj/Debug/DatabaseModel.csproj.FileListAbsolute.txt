@@ -1,0 +1,11 @@
+E:\VS's projects\VideoRental\DatabaseModel\bin\Debug\DatabaseModel.dll.config
+E:\VS's projects\VideoRental\DatabaseModel\bin\Debug\DatabaseModel.dll
+E:\VS's projects\VideoRental\DatabaseModel\bin\Debug\DatabaseModel.pdb
+E:\VS's projects\VideoRental\DatabaseModel\bin\Debug\EntityFramework.dll
+E:\VS's projects\VideoRental\DatabaseModel\bin\Debug\EntityFramework.SqlServer.dll
+E:\VS's projects\VideoRental\DatabaseModel\bin\Debug\EntityFramework.xml
+E:\VS's projects\VideoRental\DatabaseModel\bin\Debug\EntityFramework.SqlServer.xml
+E:\VS's projects\VideoRental\DatabaseModel\bin\Debug\ru\EntityFramework.resources.dll
+E:\VS's projects\VideoRental\DatabaseModel\obj\Debug\DatabaseModel.csprojResolveAssemblyReference.cache
+E:\VS's projects\VideoRental\DatabaseModel\obj\Debug\DatabaseModel.dll
+E:\VS's projects\VideoRental\DatabaseModel\obj\Debug\DatabaseModel.pdb

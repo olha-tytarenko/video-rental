@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище VideoRentalModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="genre">
+    <Key>
+      <PropertyRef Name="genre_id" />
+    </Key>
+    <Property Name="genre_id" Type="int" Nullable="false" />
+    <Property Name="genre_name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="order">
+    <Key>
+      <PropertyRef Name="order_id" />
+    </Key>
+    <Property Name="order_id" Type="int" Nullable="false" />
+    <Property Name="order_data" Type="datetime" />
+    <Property Name="order_id_user" Type="int" />
+    <Property Name="order_status" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="producer">
+    <Key>
+      <PropertyRef Name="producer_id" />
+    </Key>
+    <Property Name="producer_id" Type="int" Nullable="false" />
+    <Property Name="producer_name" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="producer_description" Type="varchar" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="user_name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="user_email" Type="varchar" MaxLength="70" Nullable="false" />
+    <Property Name="user_password" Type="varchar" MaxLength="70" Nullable="false" />
+    <Property Name="user_status" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="video">
+    <Key>
+      <PropertyRef Name="video_id" />
+    </Key>
+    <Property Name="video_id" Type="int" Nullable="false" />
+    <Property Name="video_name" Type="varchar" MaxLength="256" Nullable="false" />
+    <Property Name="video_year" Type="int" Nullable="false" />
+    <Property Name="video_description" Type="text" />
+    <Property Name="video_price_per_day" Type="float" Nullable="false" />
+    <Property Name="video_quantity" Type="int" Nullable="false" />
+    <Property Name="video_cover_url" Type="varchar" MaxLength="256" />
+    <Property Name="video_country" Type="varchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="videogenre">
+    <Key>
+      <PropertyRef Name="videogenre_id" />
+    </Key>
+    <Property Name="videogenre_id" Type="int" Nullable="false" />
+    <Property Name="videogenre_id_genre" Type="int" />
+    <Property Name="videogenre_id_video" Type="int" />
+  </EntityType>
+  <EntityType Name="videolist">
+    <Key>
+      <PropertyRef Name="videolist_id" />
+    </Key>
+    <Property Name="videolist_id" Type="int" Nullable="false" />
+    <Property Name="videolist_id_order" Type="int" Nullable="false" />
+    <Property Name="videolist_id_video" Type="int" Nullable="false" />
+    <Property Name="videolist_quantity" Type="int" />
+  </EntityType>
+  <EntityType Name="videoproducer">
+    <Key>
+      <PropertyRef Name="videoproducer_id" />
+    </Key>
+    <Property Name="videoproducer_id" Type="int" Nullable="false" />
+    <Property Name="videoproducer_id_producer" Type="int" Nullable="false" />
+    <Property Name="videoproducer_id_video" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_user">
+    <End Role="user" Type="Self.user" Multiplicity="0..1" />
+    <End Role="order" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="order">
+        <PropertyRef Name="order_id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_video">
+    <End Role="video" Type="Self.video" Multiplicity="1" />
+    <End Role="videoproducer" Type="Self.videoproducer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="video">
+        <PropertyRef Name="video_id" />
+      </Principal>
+      <Dependent Role="videoproducer">
+        <PropertyRef Name="videoproducer_id_video" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_videogenre_genre">
+    <End Role="genre" Type="Self.genre" Multiplicity="0..1" />
+    <End Role="videogenre" Type="Self.videogenre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="genre">
+        <PropertyRef Name="genre_id" />
+      </Principal>
+      <Dependent Role="videogenre">
+        <PropertyRef Name="videogenre_id_genre" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_videogenre_video">
+    <End Role="video" Type="Self.video" Multiplicity="0..1" />
+    <End Role="videogenre" Type="Self.videogenre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="video">
+        <PropertyRef Name="video_id" />
+      </Principal>
+      <Dependent Role="videogenre">
+        <PropertyRef Name="videogenre_id_video" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_videolist_order">
+    <End Role="order" Type="Self.order" Multiplicity="1" />
+    <End Role="videolist" Type="Self.videolist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="order">
+        <PropertyRef Name="order_id" />
+      </Principal>
+      <Dependent Role="videolist">
+        <PropertyRef Name="videolist_id_order" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_videolist_video1">
+    <End Role="video" Type="Self.video" Multiplicity="1" />
+    <End Role="videolist" Type="Self.videolist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="video">
+        <PropertyRef Name="video_id" />
+      </Principal>
+      <Dependent Role="videolist">
+        <PropertyRef Name="videolist_id_video" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_videoproducer_producer">
+    <End Role="producer" Type="Self.producer" Multiplicity="1" />
+    <End Role="videoproducer" Type="Self.videoproducer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="producer">
+        <PropertyRef Name="producer_id" />
+      </Principal>
+      <Dependent Role="videoproducer">
+        <PropertyRef Name="videoproducer_id_producer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище VideoRentalModelContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="genre" EntityType="Self.genre" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="order" EntityType="Self.order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="producer" EntityType="Self.producer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="video" EntityType="Self.video" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="videogenre" EntityType="Self.videogenre" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="videolist" EntityType="Self.videolist" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="videoproducer" EntityType="Self.videoproducer" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_user" Association="Self.FK_user">
+      <End Role="user" EntitySet="user" />
+      <End Role="order" EntitySet="order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_video" Association="Self.FK_video">
+      <End Role="video" EntitySet="video" />
+      <End Role="videoproducer" EntitySet="videoproducer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_videogenre_genre" Association="Self.FK_videogenre_genre">
+      <End Role="genre" EntitySet="genre" />
+      <End Role="videogenre" EntitySet="videogenre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_videogenre_video" Association="Self.FK_videogenre_video">
+      <End Role="video" EntitySet="video" />
+      <End Role="videogenre" EntitySet="videogenre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_videolist_order" Association="Self.FK_videolist_order">
+      <End Role="order" EntitySet="order" />
+      <End Role="videolist" EntitySet="videolist" />
+    </AssociationSet>
+    <AssociationSet Name="FK_videolist_video1" Association="Self.FK_videolist_video1">
+      <End Role="video" EntitySet="video" />
+      <End Role="videolist" EntitySet="videolist" />
+    </AssociationSet>
+    <AssociationSet Name="FK_videoproducer_producer" Association="Self.FK_videoproducer_producer">
+      <End Role="producer" EntitySet="producer" />
+      <End Role="videoproducer" EntitySet="videoproducer" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

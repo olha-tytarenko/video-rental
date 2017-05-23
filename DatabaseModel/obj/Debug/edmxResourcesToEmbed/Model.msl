@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище VideoRentalModelContainer" CdmEntityContainer="VideoRentalEntities">
+    <EntitySetMapping Name="C__MigrationHistory">
+      <EntityTypeMapping TypeName="VideoRentalModel.C__MigrationHistory">
+        <MappingFragment StoreEntitySet="__MigrationHistory">
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="genre">
+      <EntityTypeMapping TypeName="VideoRentalModel.genre">
+        <MappingFragment StoreEntitySet="genre">
+          <ScalarProperty Name="genre_id" ColumnName="genre_id" />
+          <ScalarProperty Name="genre_name" ColumnName="genre_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="order">
+      <EntityTypeMapping TypeName="VideoRentalModel.order">
+        <MappingFragment StoreEntitySet="order">
+          <ScalarProperty Name="order_id" ColumnName="order_id" />
+          <ScalarProperty Name="order_data" ColumnName="order_data" />
+          <ScalarProperty Name="order_id_user" ColumnName="order_id_user" />
+          <ScalarProperty Name="order_status" ColumnName="order_status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="producer">
+      <EntityTypeMapping TypeName="VideoRentalModel.producer">
+        <MappingFragment StoreEntitySet="producer">
+          <ScalarProperty Name="producer_id" ColumnName="producer_id" />
+          <ScalarProperty Name="producer_name" ColumnName="producer_name" />
+          <ScalarProperty Name="producer_description" ColumnName="producer_description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="VideoRentalModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user">
+      <EntityTypeMapping TypeName="VideoRentalModel.user">
+        <MappingFragment StoreEntitySet="user">
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="user_name" ColumnName="user_name" />
+          <ScalarProperty Name="user_email" ColumnName="user_email" />
+          <ScalarProperty Name="user_password" ColumnName="user_password" />
+          <ScalarProperty Name="user_status" ColumnName="user_status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="video">
+      <EntityTypeMapping TypeName="VideoRentalModel.video">
+        <MappingFragment StoreEntitySet="video">
+          <ScalarProperty Name="video_id" ColumnName="video_id" />
+          <ScalarProperty Name="video_name" ColumnName="video_name" />
+          <ScalarProperty Name="video_year" ColumnName="video_year" />
+          <ScalarProperty Name="video_description" ColumnName="video_description" />
+          <ScalarProperty Name="video_price_per_day" ColumnName="video_price_per_day" />
+          <ScalarProperty Name="video_quantity" ColumnName="video_quantity" />
+          <ScalarProperty Name="video_cover_url" ColumnName="video_cover_url" />
+          <ScalarProperty Name="video_country" ColumnName="video_country" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="videogenre">
+      <EntityTypeMapping TypeName="VideoRentalModel.videogenre">
+        <MappingFragment StoreEntitySet="videogenre">
+          <ScalarProperty Name="videogenre_id" ColumnName="videogenre_id" />
+          <ScalarProperty Name="videogenre_id_genre" ColumnName="videogenre_id_genre" />
+          <ScalarProperty Name="videogenre_id_video" ColumnName="videogenre_id_video" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="videolist">
+      <EntityTypeMapping TypeName="VideoRentalModel.videolist">
+        <MappingFragment StoreEntitySet="videolist">
+          <ScalarProperty Name="videolist_id" ColumnName="videolist_id" />
+          <ScalarProperty Name="videolist_id_order" ColumnName="videolist_id_order" />
+          <ScalarProperty Name="videolist_id_video" ColumnName="videolist_id_video" />
+          <ScalarProperty Name="videolist_quantity" ColumnName="videolist_quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="videoproducer">
+      <EntityTypeMapping TypeName="VideoRentalModel.videoproducer">
+        <MappingFragment StoreEntitySet="videoproducer">
+          <ScalarProperty Name="videoproducer_id" ColumnName="videoproducer_id" />
+          <ScalarProperty Name="videoproducer_id_producer" ColumnName="videoproducer_id_producer" />
+          <ScalarProperty Name="videoproducer_id_video" ColumnName="videoproducer_id_video" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

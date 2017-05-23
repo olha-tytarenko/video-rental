@@ -1,0 +1,39 @@
+﻿@model IEnumerable<VideoRentalSite.Models.producer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.producer_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.producer_description)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.producer_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.producer_description)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.producer_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.producer_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.producer_id })
+        </td>
+    </tr>
+}
+
+</table>
