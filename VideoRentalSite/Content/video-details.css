@@ -1,0 +1,26 @@
+﻿body {
+}
+
+.video-content-details{
+    width: 100%;
+
+}
+.img-cover-details {
+    width: 35%;
+    float: left;
+}
+
+.img-cover-details  img{
+    width: 350px;
+    padding: 20px;
+}
+
+.description-details{
+        width: 60%;
+        float: left;
+        padding: 20px 0;
+}
+
+.clear{
+    clear: both;
+}

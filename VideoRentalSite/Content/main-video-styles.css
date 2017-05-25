@@ -1,0 +1,38 @@
+﻿body {
+    background-color: orange;
+}
+
+.img-cover img{
+    width: 140px;
+    height: 200px;
+}
+
+.img-cover{
+    float: left;
+    padding: 20px;
+    width: 20%;
+}
+
+.sidebar{
+    width: 25%;
+    float:left;
+}
+
+.content-video{
+    width: 70%;
+    float: left;
+}
+
+.video-description{
+    height: 350px;
+    padding-top: 20px;
+}
+
+.video-description h2{
+    font-size: 25px;
+    font-weight: 700; 
+}
+
+.video-description div{
+    padding: 5px 0;
+}

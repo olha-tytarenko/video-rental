@@ -4,10 +4,12 @@
 @{
     ViewBag.Title = "Details";
 }
+@Styles.Render("~/Content/video-details.css")
 
 @{ 
     string connectionString = @"VideoRentalDatabase";
     string genreName = "";
+    string producerNames = "";
     using (var db = Database.Open(connectionString))
     {
 
@@ -18,81 +20,44 @@
         {
             genreName += @item.genre_name + " ";
         }
+
+        IEnumerable<dynamic> producer = db.Query("SELECT producer.producer_name FROM producer, videoproducer WHERE " +
+    "videoproducer.videoproducer_id_producer = producer.producer_id and videoproducer.videoproducer_id_video = " + Model.video_id);
+
+        foreach (var item in producer)
+        {
+            producerNames += @item.producer_name + " ";
+        }
+
     }
 }
+
+
 <h2>Details</h2>
 
 <div>
     <h4>video</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.video_name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.video_name)
-        </dd>
+    <div class="video-content-details">
+        <div class="img-cover-details">
+            <img src=@Html.DisplayFor(model => model.video_cover_url) />
+        </div>
+        <div class="description-details">
+            <h2>@Html.DisplayFor(model => model.video_name)</h2>
+            <ul class="list-description">
+                <li>Описание: @Html.DisplayFor(model => model.video_description)</li>
+                <li>Режиссер: @producerNames</li>
+                <li>Год выпуска: @Html.DisplayFor(model => model.video_year)</li>
+                <li>Жанр: @genreName</li>
+                <li>Страна: @Html.DisplayFor(model => model.video_country)</li>
+                <li>Цена за сутки: @Html.DisplayFor(model => model.video_price_per_day)</li>
+                <li>В наличии: @Html.DisplayFor(model => model.video_quantity)</li>
+            </ul>
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.video_year)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.video_year)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.video_description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.video_description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.video_price_per_day)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.video_price_per_day)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.video_quantity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.video_quantity)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.video_cover_url)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.video_cover_url)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.video_country)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.video_country)
-        </dd>
-        <dt>
-            Жанр:
-        </dt>
-
-        <dd>
-            @genreName
-        </dd>
-
-
-    </dl>
 </div>
-<p>
+<p class="clear">
     @Html.ActionLink("Edit", "Edit", new { id = Model.video_id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

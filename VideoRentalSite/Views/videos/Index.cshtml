@@ -1,69 +1,46 @@
 ﻿@model IEnumerable<VideoRentalSite.Models.video>
+@using WebMatrix.Data;
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+@Styles.Render("~/Content/main-video-styles.css")
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.video_name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.video_year)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.video_description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.video_price_per_day)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.video_quantity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.video_cover_url)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.video_country)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.video_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.video_year)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.video_description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.video_price_per_day)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.video_quantity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.video_cover_url)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.video_country)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.video_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.video_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.video_id })
-        </td>
-    </tr>
-}
+    <div class="sidebar">sidebar</div>
+    <div class="content-video">
 
-</table>
+
+    @foreach (var item in Model)
+    {
+        <div class="video-details">
+            <img src=@Html.DisplayFor(modelItem => item.video_cover_url) class="img-cover" />
+            <div class="video-description">
+                <div><h2>@Html.DisplayFor(modelItem => item.video_name)</h2></div>
+                <div><span>Описание: </span>@Html.DisplayFor(modelItem => item.video_description)</div>
+                <div><span>Страна: </span>@Html.DisplayFor(modelItem => item.video_country)</div>
+                <div><span>Год выпуска: </span>@Html.DisplayFor(modelItem => item.video_year)</div>
+                @{
+                    string connectionString = @"VideoRentalDatabase";
+                    string genreName = "";
+                    using (var db = Database.Open(connectionString))
+                    {
+
+                        IEnumerable<dynamic>
+                            genre = db.Query("SELECT genre.genre_name FROM genre, videogenre WHERE " +
+                            "videogenre.videogenre_id_genre = genre.genre_id and videogenre.videogenre_id_video = " + item.video_id);
+
+                        foreach (var g in genre)
+                        {
+                            genreName += @g.genre_name + " ";
+                        }
+                    }
+                }
+                <div><span>Жанр: </span>@genreName</div>
+                <div>@Html.ActionLink("Details", "Details", new { id = item.video_id }) </div>
+            </div>
+        </div>
+    }
+
+</div>
