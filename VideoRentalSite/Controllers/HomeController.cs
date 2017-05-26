@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using VideoRentalSite.Models;
@@ -49,7 +50,7 @@ namespace VideoRentalSite.Controllers
             if (ModelState.IsValid)
             {
                 var details = (from userlist in db.user
-                               where userlist.user_email == User.user_email &&
+                               where (userlist.user_email == User.user_email || userlist.user_name == User.user_name) &&
                                userlist.user_password == User.user_password
                                select new
                                {
@@ -61,11 +62,12 @@ namespace VideoRentalSite.Controllers
                 {
                     Session["user_id"] = details.FirstOrDefault().user_id;
                     Session["user_name"] = details.FirstOrDefault().user_name;
+                    Session["user_status"] = details.FirstOrDefault().user_status;
                     if (details.FirstOrDefault().user_status == "admin")
                     {
-                        return RedirectToAction("Index", "Admin");
+                        return RedirectToAction("AdminIndex", "Home");
                     }
-                    return RedirectToAction("Welcome", "Home");
+                    return RedirectToAction("UserIndex", "Home");
                 }
             }
             else
@@ -75,6 +77,31 @@ namespace VideoRentalSite.Controllers
             return View(User);
         }
         
+
+        public ActionResult AdminIndex()
+        {
+            var item = db.video;
+            return View(item);
+        }
+
+        public ActionResult UserIndex()
+        {
+            var item = db.video;
+            return View(item);
+        }
+        public ActionResult AdminEdit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            video video = db.video.Find(id);
+            if (video == null)
+            {
+                return HttpNotFound();
+            }
+            return View(video);
+        }
         public ActionResult Welcome()
         {
             return View();
@@ -85,20 +112,17 @@ namespace VideoRentalSite.Controllers
             return View();
         }
         
-        public ActionResult About()
+        public ActionResult PersonalArea()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
-        public ActionResult Contact()
+
+        public ActionResult Basket(int? id)
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            order order = db.order.Find(id);
+            return View(order);
         }
-
 
     }
 }

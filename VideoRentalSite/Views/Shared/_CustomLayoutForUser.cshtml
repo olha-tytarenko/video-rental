@@ -17,8 +17,8 @@
                 <li>@Html.ActionLink("Главная", "Start", "Home")</li>
                 <li>@Html.ActionLink("Регистрация", "Register", "Home")</li>
                 <li>@Html.ActionLink("Выход", "Start", "Home")</li>
-                <li>@Html.ActionLink("Личный кабинет", "PersonalArea", "User")</li>
-                <li>@Html.ActionLink("Корзина", "Bascet", "User")</li>
+                <li>@Html.ActionLink("Личный кабинет", "PersonalArea", "Home")</li>
+                <li>@Html.ActionLink("Корзина", "Basket", "Home", new { id = Session["user_id"] })</li>
             </ul>
             @*@Html.Partial("_LoginPartial")*@
 

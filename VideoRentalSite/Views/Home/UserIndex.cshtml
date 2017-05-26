@@ -1,0 +1,48 @@
+﻿@model IEnumerable<VideoRentalSite.Models.video>
+@using WebMatrix.Data;
+@{
+    Layout = "~/Views/Shared/_CustomLayoutForUser.cshtml";
+}
+@{
+    ViewBag.Title = "Index";
+}
+
+@Styles.Render("~/Content/main-video-styles.css")
+
+
+<div class="sidebar">sidebar</div>
+<div class="content-video">
+
+
+    @foreach (var item in Model)
+    {
+        <div class="video-details">
+            <img src=@Html.DisplayFor(modelItem => item.video_cover_url) class="img-cover" />
+            <div class="video-description">
+                <div><h2>@Html.DisplayFor(modelItem => item.video_name)</h2></div>
+                <div><span>Описание: </span>@Html.DisplayFor(modelItem => item.video_description)</div>
+                <div><span>Страна: </span>@Html.DisplayFor(modelItem => item.video_country)</div>
+                <div><span>Год выпуска: </span>@Html.DisplayFor(modelItem => item.video_year)</div>
+                @{
+                    string connectionString = @"VideoRentalDatabase";
+                    string genreName = "";
+                    using (var db = Database.Open(connectionString))
+                    {
+
+                        IEnumerable<dynamic>
+                            genre = db.Query("SELECT genre.genre_name FROM genre, videogenre WHERE " +
+                            "videogenre.videogenre_id_genre = genre.genre_id and videogenre.videogenre_id_video = " + item.video_id);
+
+                        foreach (var g in genre)
+                        {
+                            genreName += @g.genre_name + " ";
+                        }
+                    }
+                }
+                <div><span>Жанр: </span>@genreName</div>
+                <div>@Html.ActionLink("Details", "Details", new { id = item.video_id }) </div>
+            </div>
+        </div>
+                    }
+
+</div>
