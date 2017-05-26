@@ -13,7 +13,8 @@ namespace VideoRentalSite.Controllers
         private VideoRentalEntities db = new VideoRentalEntities();
         public ActionResult Index()
         {
-            return View();
+            var item = db.video;
+            return View(item);
         }
         public ActionResult Register()
         {

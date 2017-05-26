@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using VideoRentalSite.Models;
 
 namespace VideoRentalSite.Controllers
 {
-    
-    public class AdminController : Controller
+    public class UserController : Controller
     {
         private VideoRentalEntities db = new VideoRentalEntities();
         // GET: Admin
@@ -19,19 +17,14 @@ namespace VideoRentalSite.Controllers
             return View(item);
         }
 
-        public ActionResult Edit(int? id)
+        public ActionResult PersonalArea()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            video video = db.video.Find(id);
-            if (video == null)
-            {
-                return HttpNotFound();
-            }
-            return View(video);
+            return View();
         }
 
+        public ActionResult Bascet()
+        {
+            return View();
+        }
     }
 }

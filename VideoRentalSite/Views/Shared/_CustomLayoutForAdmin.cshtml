@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title – приложение ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/main.css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <header>
+        <div class="navigation">
+            <ul class="nav">
+                <li>@Html.ActionLink("Главная", "Start", "Home")</li>
+                <li>@Html.ActionLink("Регистрация", "Register", "Home")</li>
+                <li>@Html.ActionLink("Выход", "Start", "Home")</li>
+            </ul>
+            @*@Html.Partial("_LoginPartial")*@
+
+        </div>
+    </header>
+
+    <div class="wrapper">
+
+        @RenderBody()
+
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

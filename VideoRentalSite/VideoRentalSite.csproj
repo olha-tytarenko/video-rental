@@ -206,6 +206,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ordersController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\usersController.cs" />
     <Compile Include="Controllers\videogenresController.cs" />
     <Compile Include="Controllers\videolistsController.cs" />
@@ -389,9 +390,13 @@
     <Content Include="Views\Home\Welcome.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Home\Start.cshtml" />
+    <Content Include="Views\Admin\Edit.cshtml" />
+    <Content Include="Views\Shared\_CustomLayoutForAdmin.cshtml" />
+    <Content Include="Views\Shared\_CustomLayoutForUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
