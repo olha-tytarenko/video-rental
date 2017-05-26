@@ -203,16 +203,15 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\genresController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ordersController.cs" />
-    <Compile Include="Controllers\producersController.cs" />
     <Compile Include="Controllers\usersController.cs" />
     <Compile Include="Controllers\videogenresController.cs" />
     <Compile Include="Controllers\videolistsController.cs" />
     <Compile Include="Controllers\videoproducersController.cs" />
     <Compile Include="Controllers\videosController.cs" />
+    <Compile Include="Filters\VideoRentalAuthorizeFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -389,6 +388,7 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Welcome.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Home\Start.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

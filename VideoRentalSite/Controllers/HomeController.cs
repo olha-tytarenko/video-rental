@@ -53,12 +53,17 @@ namespace VideoRentalSite.Controllers
                                select new
                                {
                                    userlist.user_id,
-                                   userlist.user_name                              
+                                   userlist.user_name,
+                                   userlist.user_status                              
                                }).ToList();
                 if (details.FirstOrDefault() != null)
                 {
                     Session["user_id"] = details.FirstOrDefault().user_id;
                     Session["user_name"] = details.FirstOrDefault().user_name;
+                    if (details.FirstOrDefault().user_status == "admin")
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
                     return RedirectToAction("Welcome", "Home");
                 }
             }
@@ -68,11 +73,17 @@ namespace VideoRentalSite.Controllers
             }
             return View(User);
         }
-
+        
         public ActionResult Welcome()
         {
             return View();
         }
+
+        public ActionResult Start()
+        {
+            return View();
+        }
+        
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using VideoRentalSite.Filters;
 
 namespace VideoRentalSite
 {

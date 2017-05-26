@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using VideoRentalSite.Filters;
 using VideoRentalSite.Models;
 
 namespace VideoRentalSite.Controllers
@@ -21,6 +22,7 @@ namespace VideoRentalSite.Controllers
         }
 
         // GET: videos/Details/5
+        [VideoRentalAuthorizeFilterAttribute]
         public ActionResult Details(int? id)
         {
             if (id == null)
