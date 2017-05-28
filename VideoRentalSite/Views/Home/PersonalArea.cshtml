@@ -1,0 +1,38 @@
+﻿@model VideoRentalSite.Models.order
+@using WebMatrix.Data;
+@{
+    ViewBag.Title = "Basket";
+}
+
+@{
+    string connectionString = @"VideoRentalDatabase";
+    IEnumerable<dynamic> orders;
+    using (var db = Database.Open(connectionString))
+    {
+
+        orders = db.Query("SELECT DISTINCT orders.order_data, orders.order_status, orders.order_id" +
+           " FROM orders WHERE orders.user_id = " + Session["user_id"]);
+
+    }
+
+}
+
+<div>
+    <h4>order</h4>
+    <hr />
+    <table>
+        <tr><th>Дата заказа</th><th>Статус</th> </tr>
+        @{
+            foreach (var item in orders)
+            {
+
+                <tr id=@item.order_data><td> @item.order_status </td> <td>@Html.ActionLink("Подробнее", "OrderDetails", new { id = item.order_id })</td></tr>
+
+            }
+        }
+
+    </table>
+</div>
+
+
+

@@ -51,14 +51,19 @@
     }
 
     function MakeOrder() {
-        var orderIds = {};
+        var orderIds = [];
         var $table = $('table');
+        var length = 0;
         $('tr', $table).each(function (tr, elem) {
             if (elem.id) {
-                orderIds["id" + elem.id] = elem.id;
+                orderIds.push(elem.id);
+                length++;
             }
             
         });
+        orderIds.length = length;
         console.log(orderIds);
+
+        var a = $.get("/Home/MakeOrder", {ids: orderIds.join(',')});
     }
 </script>

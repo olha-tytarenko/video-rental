@@ -1,0 +1,44 @@
+﻿@model VideoRentalSite.Models.order
+@using WebMatrix.Data;
+@{
+    ViewBag.Title = "Basket";
+}
+
+@{
+    string connectionString = @"VideoRentalDatabase";
+    IEnumerable<dynamic> videos;
+    int orderId = Model.order_id;
+    using (var db = Database.Open(connectionString))
+    {
+
+        videos = db.Query("SELECT orders.video_name, orders.video_price_per_day" +
+           " FROM orders WHERE orders.order_id = " + orderId);
+
+    }
+
+    float totalPrice = 0;
+}
+
+<h2>Basket</h2>
+
+<div>
+    <h4>order</h4>
+    <hr />
+    <table>
+        <tr><th>Название фильма</th><th>Стоимость</th> </tr>
+        @{
+            foreach (var item in videos)
+            {
+
+                <tr><td> @item.video_name </td> <td>@item.video_price_per_day </td> </tr>
+
+                totalPrice += @item.video_price_per_day;
+            }
+        }
+        <tr><td>Общая сумма</td><td>@totalPrice</td> </tr>
+    </table>
+    <button type="button" onclick="MakeOrder()">Заказать</button>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "UserIndex")
+</p>

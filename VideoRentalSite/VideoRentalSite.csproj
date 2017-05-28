@@ -394,6 +394,8 @@
     <Content Include="Views\Home\Basket.cshtml" />
     <Content Include="Views\Home\UserIndex.cshtml" />
     <Content Include="Views\Home\VideoDetails.cshtml" />
+    <Content Include="Views\Home\PersonalArea.cshtml" />
+    <Content Include="Views\Home\OrderDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -112,10 +112,7 @@ namespace VideoRentalSite.Controllers
             return View();
         }
         
-        public ActionResult PersonalArea()
-        {
-            return View();
-        }
+
 
 
         public ActionResult Basket()
@@ -172,6 +169,7 @@ namespace VideoRentalSite.Controllers
 
         public EmptyResult MakeOrder()
         {
+            string [] ids = Request["ids"].Split(',');
             DateTime dateNow = DateTime.Now;
             int newOrderId = (from m in db.order select m.order_id).ToList().Last() + 1;
 
@@ -183,9 +181,9 @@ namespace VideoRentalSite.Controllers
             db.order.Add(newOrder);
             db.SaveChanges();
 
-            for (int i = 0; i < Request.Params.Count; i++)
+            for (int i = 0; i < ids.Length; i++)
             {
-                int orderId = Int32.Parse(Request.Params[i].ToString());
+                int orderId = Int32.Parse(ids[i]);
                 videolist videolist = db.videolist.SingleOrDefault(vl => vl.videolist_id_order == orderId);
                 videolist.videolist_id_order = newOrderId;
 
@@ -198,6 +196,27 @@ namespace VideoRentalSite.Controllers
 
 
             return new EmptyResult();
+        }
+
+
+
+        public ActionResult PersonalArea()
+        {
+            return View();
+        }
+
+        public ActionResult OrderDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            order order = db.order.Find(id);
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+            return View(order);
         }
 
     }
