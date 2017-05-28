@@ -1,7 +1,19 @@
 ﻿@model VideoRentalSite.Models.order
-
+@using WebMatrix.Data;
 @{
     ViewBag.Title = "Basket";
+}
+
+@{
+    string connectionString = @"VideoRentalDatabase";
+    IEnumerable<dynamic> videos;
+    using (var db = Database.Open(connectionString))
+    {
+
+         videos = db.Query("SELECT basket.video_name, basket.videolist_quantity, basket.order_data" +
+            " FROM basket WHERE basket.user_id = " + Session["user_id"]);
+
+    }
 }
 
 <h2>Basket</h2>
@@ -10,33 +22,38 @@
     <h4>order</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.order_data)
-        </dt>
+        @{
+            foreach (var item in videos)
+            {
+                <dt>
+                    Name
+                </dt>
+                <dd>
+                    @item.video_name
+                </dd>
+                   
+                <dt>
+                    Quantity
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.order_data)
-        </dd>
+                <dd>
+                    @item.videolist_quantity
+                </dd>
+                <dt>
+                    Date
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.order_status)
-        </dt>
+                <dd>
+                    @item.order_data
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.order_status)
-        </dd>
+            }
+        }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.user.user_name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.user.user_name)
-        </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.order_id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "UserIndex")
 </p>

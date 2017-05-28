@@ -1,0 +1,73 @@
+﻿@model VideoRentalSite.Models.video
+@using WebMatrix.Data;
+
+@{
+    ViewBag.Title = "Details";
+}
+@Styles.Render("~/Content/video-details.css")
+
+@{
+    string connectionString = @"VideoRentalDatabase";
+    string genreName = "";
+    string producerNames = "";
+    using (var db = Database.Open(connectionString))
+    {
+
+        IEnumerable<dynamic> genre = db.Query("SELECT genre.genre_name FROM genre, videogenre WHERE " +
+            "videogenre.videogenre_id_genre = genre.genre_id and videogenre.videogenre_id_video = " + Model.video_id);
+
+        foreach (var item in genre)
+        {
+            genreName += @item.genre_name + " ";
+        }
+
+        IEnumerable<dynamic> producer = db.Query("SELECT producer.producer_name FROM producer, videoproducer WHERE " +
+    "videoproducer.videoproducer_id_producer = producer.producer_id and videoproducer.videoproducer_id_video = " + Model.video_id);
+
+        foreach (var item in producer)
+        {
+            producerNames += @item.producer_name + " ";
+        }
+
+    }
+}
+
+
+<h2>Details</h2>
+
+<div>
+    <h4>video</h4>
+
+    <div class="video-content-details">
+        <div class="img-cover-details">
+            <img src=@Html.DisplayFor(model => model.video_cover_url) />
+        </div>
+        <div class="description-details">
+            <h2>@Html.DisplayFor(model => model.video_name)</h2>
+            <ul class="list-description">
+                <li>Описание: @Html.DisplayFor(model => model.video_description)</li>
+                <li>Режиссер: @producerNames</li>
+                <li>Год выпуска: @Html.DisplayFor(model => model.video_year)</li>
+                <li>Жанр: @genreName</li>
+                <li>Страна: @Html.DisplayFor(model => model.video_country)</li>
+                <li>Цена за сутки: @Html.DisplayFor(model => model.video_price_per_day)</li>
+                <li>В наличии: @Html.DisplayFor(model => model.video_quantity)</li>
+            </ul>
+        </div>
+    </div>
+    <p id="video_id" style="visibility:hidden">@Html.DisplayFor(model => model.video_id)</p>
+    <script type="text/jscript">
+        function AddIntoBasket() {
+            alert("ddd");
+            var a = $.get("/Home/AddIntoBasket",{id : document.getElementById("video_id").innerHTML });
+            alert(a);
+        };
+    </script>
+    <p>
+        <input type="button" onclick="AddIntoBasket()"  value="Create" />
+    </p>
+</div>
+<p class="clear">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.video_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

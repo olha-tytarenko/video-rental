@@ -118,10 +118,31 @@ namespace VideoRentalSite.Controllers
         }
 
 
-        public ActionResult Basket(int? id)
+        public ActionResult Basket()
+
         {
-            order order = db.order.Find(id);
-            return View(order);
+            return View();
+        }
+
+        public ActionResult VideoDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            video video = db.video.Find(id);
+            if (video == null)
+            {
+                return HttpNotFound();
+            }
+            return View(video);
+        }
+
+        public EmptyResult AddIntoBasket()
+        {
+            int? id = Int32.Parse(Request.Params[0]);
+
+            return new EmptyResult();
         }
 
     }

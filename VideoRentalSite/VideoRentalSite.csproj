@@ -393,6 +393,7 @@
     <Content Include="Views\Shared\_CustomLayoutForUser.cshtml" />
     <Content Include="Views\Home\Basket.cshtml" />
     <Content Include="Views\Home\UserIndex.cshtml" />
+    <Content Include="Views\Home\VideoDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -40,7 +40,8 @@
                     }
                 }
                 <div><span>Жанр: </span>@genreName</div>
-                <div>@Html.ActionLink("Details", "Details", new { id = item.video_id }) </div>
+                
+                <div>@Html.ActionLink("Details", "VideoDetails", new { id = item.video_id }) </div>
             </div>
         </div>
                     }
