@@ -10,10 +10,12 @@
     using (var db = Database.Open(connectionString))
     {
 
-         videos = db.Query("SELECT basket.video_name, basket.videolist_quantity, basket.order_data" +
+         videos = db.Query("SELECT basket.video_name, basket.video_price_per_day, basket.order_id" +
             " FROM basket WHERE basket.user_id = " + Session["user_id"]);
 
     }
+
+    float totalPrice = 0;
 }
 
 <h2>Basket</h2>
@@ -21,39 +23,42 @@
 <div>
     <h4>order</h4>
     <hr />
-    <dl class="dl-horizontal">
+    <table>
+        <tr><th>Название фильма</th><th>Стоимость</th> </tr>
         @{
             foreach (var item in videos)
             {
-                <dt>
-                    Name
-                </dt>
-                <dd>
-                    @item.video_name
-                </dd>
-                   
-                <dt>
-                    Quantity
-                </dt>
 
-                <dd>
-                    @item.videolist_quantity
-                </dd>
-                <dt>
-                    Date
-                </dt>
-
-                <dd>
-                    @item.order_data
-                </dd>
-
+                <tr id=@item.order_id><td> @item.video_name </td> <td>@item.video_price_per_day </td> <td><button type="button" onclick="DeleteFromBasket(this)" value=@item.order_id>Удалить</button></td></tr>
+               
+                 totalPrice += @item.video_price_per_day;
             }
         }
-
-
-
-    </dl>
+    <tr><td>Общая сумма</td><td>@totalPrice</td> </tr>
+    </table>
+    <button type="button" onclick="MakeOrder()">Заказать</button>
 </div>
 <p>
     @Html.ActionLink("Back to List", "UserIndex")
 </p>
+
+<script>
+    function DeleteFromBasket(element){
+
+        var a = $.get("/Home/DeleteFromBasket", { id: element.value });
+        $("#" + element.value).remove();
+        alert(element.value);
+    }
+
+    function MakeOrder() {
+        var orderIds = {};
+        var $table = $('table');
+        $('tr', $table).each(function (tr, elem) {
+            if (elem.id) {
+                orderIds["id" + elem.id] = elem.id;
+            }
+            
+        });
+        console.log(orderIds);
+    }
+</script>

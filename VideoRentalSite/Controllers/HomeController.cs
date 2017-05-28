@@ -140,7 +140,62 @@ namespace VideoRentalSite.Controllers
 
         public EmptyResult AddIntoBasket()
         {
-            int? id = Int32.Parse(Request.Params[0]);
+            int id = Int32.Parse(Request.Params[0]);
+            int orderId = (from m in db.order select m.order_id).ToList().Last() + 1;
+            order order = new order();
+            order.order_id = orderId;
+            order.order_data = DateTime.Now;
+            order.order_id_user = Int32.Parse(Session["user_id"].ToString());
+            order.order_status = "basket";
+            db.order.Add(order);
+            db.SaveChanges();
+            videolist videolist = new videolist();
+            videolist.videolist_id = (from m in db.videolist select m.videolist_id).ToList().Last() + 1;
+            videolist.videolist_id_order = orderId;
+            videolist.videolist_id_video = id;
+            videolist.videolist_quantity = 1;
+            db.videolist.Add(videolist);
+            db.SaveChanges();
+
+            return new EmptyResult();
+        }
+
+        public EmptyResult DeleteFromBasket()
+        {
+            int orderId = Int32.Parse(Request.Params[0].ToString());
+            videolist videolist = db.videolist.SingleOrDefault(vl => vl.videolist_id_order == orderId);
+            db.videolist.Remove(videolist);
+            db.SaveChanges();
+
+            return new EmptyResult();
+        }
+
+        public EmptyResult MakeOrder()
+        {
+            DateTime dateNow = DateTime.Now;
+            int newOrderId = (from m in db.order select m.order_id).ToList().Last() + 1;
+
+            order newOrder = new order();
+            newOrder.order_id = newOrderId;
+            newOrder.order_data = dateNow;
+            newOrder.order_id_user = Int32.Parse(Session["user_id"].ToString());
+            newOrder.order_status = "processing";
+            db.order.Add(newOrder);
+            db.SaveChanges();
+
+            for (int i = 0; i < Request.Params.Count; i++)
+            {
+                int orderId = Int32.Parse(Request.Params[i].ToString());
+                videolist videolist = db.videolist.SingleOrDefault(vl => vl.videolist_id_order == orderId);
+                videolist.videolist_id_order = newOrderId;
+
+                order order = db.order.SingleOrDefault(o => o.order_id == orderId);
+                db.order.Remove(order);
+
+                db.SaveChanges();
+            }
+            
+
 
             return new EmptyResult();
         }
