@@ -67,6 +67,14 @@
         orderIds.length = length;
         console.log(orderIds);
 
-        var a = $.get("/Home/MakeOrder", {ids: orderIds.join(',')});
+       //var a = $.get("/Home/MakeOrder", { ids: orderIds.join(',') });
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("MakeOrder", "Home")',
+            data: { ids: orderIds.join(',') },
+            success: function () {
+                alert('Заказ отправлен на обработку');
+            }
+        })
     }
 </script>

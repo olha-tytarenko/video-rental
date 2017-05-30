@@ -14,7 +14,7 @@
     {
 
         orders = db.Query("SELECT DISTINCT orders.order_data, orders.order_status, orders.order_id" +
-           " FROM orders WHERE orders.user_id = " + Session["user_id"] + "ORDER BY orders.order_data");
+           " FROM orders ORDER BY orders.order_data");
 
     }
 
@@ -29,13 +29,10 @@
             foreach (var item in orders)
             {
 
-                <tr id=@item.order_data><td>@item.order_data</td><td> @item.order_status </td> <td>@Html.ActionLink("Подробнее", "OrderDetails", new { id = item.order_id })</td></tr>
+                <tr><td>@item.order_data</td><td> @item.order_status </td> <td>@Html.ActionLink("Подробнее", "OrderDetailsAdmin", new { id = item.order_id })</td></tr>
 
             }
         }
 
     </table>
 </div>
-
-
-

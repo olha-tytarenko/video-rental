@@ -12,7 +12,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Добавить", "AddVideo")
 </p>
 <table class="table">
     <tr>
@@ -64,8 +64,8 @@
             @Html.DisplayFor(modelItem => item.video_country)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.video_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.video_id }) |
+            @Html.ActionLink("Edit", "AdminEdit", new { id=item.video_id }) |
+            @Html.ActionLink("Details", "VideoDetails", new { id=item.video_id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.video_id })
         </td>
     </tr>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -99,6 +100,19 @@ namespace VideoRentalSite.Controllers
             if (video == null)
             {
                 return HttpNotFound();
+            }
+            return View(video);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AdminEdit([Bind(Include = "video_id,video_name,video_year,video_description,video_price_per_day,video_quantity,video_cover_url,video_country")] video video)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(video).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("AdminIndex");
             }
             return View(video);
         }
@@ -305,6 +319,36 @@ namespace VideoRentalSite.Controllers
             lastVideo.video_cover_url = path;
             db.SaveChanges();
             return new EmptyResult();
+        }
+
+
+        public ActionResult Orders()
+        {
+            return View();
+        }
+
+        public ActionResult OrderDetailsAdmin(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            order order = db.order.Find(id);
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+            return View(order);
+        }
+
+        public ActionResult ChangeStatus()
+        {
+            int id = Int32.Parse(Request["order_id"]);
+            order order = db.order.SingleOrDefault(o => o.order_id == id);
+            order.order_status = Request["order_status"].ToString();
+            db.SaveChanges();
+
+            return RedirectToAction("OrderDetailsAdmin", new { id = Int32.Parse(Request["order_id"]) });
         }
 
     }

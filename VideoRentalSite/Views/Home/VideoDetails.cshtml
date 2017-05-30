@@ -4,9 +4,23 @@
 @{
     ViewBag.Title = "Details";
 }
-@using WebMatrix.Data;
+@{ 
+    string layout = null;
+    if (Session["user_status"] != null)
+    {
+        if (Session["user_status"].ToString() == "admin")
+        {
+            layout = "~/Views/Shared/_CustomLayoutForAdmin.cshtml";
+        }
+        else
+        {
+            layout = "~/Views/Shared/_CustomLayoutForUser.cshtml";
+        }
+    }
+
+}
 @{
-    Layout = "~/Views/Shared/_CustomLayoutForUser.cshtml";
+    Layout = layout;
 }
 
 @Styles.Render("~/Content/video-details.css")
