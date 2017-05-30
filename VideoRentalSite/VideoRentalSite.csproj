@@ -396,6 +396,7 @@
     <Content Include="Views\Home\VideoDetails.cshtml" />
     <Content Include="Views\Home\PersonalArea.cshtml" />
     <Content Include="Views\Home\OrderDetails.cshtml" />
+    <Content Include="Views\Home\AddVideo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

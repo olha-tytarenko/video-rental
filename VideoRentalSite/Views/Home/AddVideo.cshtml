@@ -1,0 +1,159 @@
+﻿@model VideoRentalSite.Models.video
+
+@{
+    ViewBag.Title = "AddVideo";
+}
+
+@using WebMatrix.Data;
+@{
+    ViewBag.Title = "Basket";
+}
+
+@{
+    string connectionString = @"VideoRentalDatabase";
+    IEnumerable<dynamic> genre;
+    using (var db = Database.Open(connectionString))
+    {
+
+        genre = db.Query("SELECT genre.genre_id, genre.genre_name FROM genre");
+
+    }
+
+}
+
+
+
+
+<h2>AddVideo</h2>
+
+<form>
+
+    <div>
+        <div class="form-group">
+            <label>Наименование</label>
+            <div class="col-md-10">
+                <input type="text" id="name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Страна</label>
+            <div class="col-md-10">
+                <input type="text" id="country" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Описание</label>
+            <div class="col-md-10">
+                <textarea id="description"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Год выпуска</label>
+            <div class="col-md-10">
+                <input type="text" id="year" />
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label>Цена</label>
+            <div class="col-md-10">
+                <input type="text" id="price" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Количество</label>
+            <div class="col-md-10">
+                <input type="text" id="quantity" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Постер</label>
+            <div class="col-md-10">
+                <input type="file" accept="image/jpeg" id="cover" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Жанр</label>
+            <div class="genre">
+                @{
+                    foreach (var item in genre)
+                    {
+                        <label><input id=@item.genre_id type="checkbox" />@item.genre_name</label>
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Режиссер</label>
+            <div class="col-md-10">
+                <input type="text" id="producer" />
+            </div>
+        </div>
+
+
+
+        <div class="col-md-offset-2 col-md-10">
+            <input type="button" value="Create" class="btn btn-default"  onclick="AddVideo()"/>
+        </div>
+
+    </div>
+    
+</form>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+
+    function AddVideo() {
+        var genre = [];
+        $('input:checkbox:checked').each(function (index, elem) {
+            genre.push(elem.id);
+        });
+
+        var data = {
+            "name": $("#name").val(),
+            "country": $("#country").val(),
+            "description": $("#description").val(),
+            "year": $("#year").val(),
+            "price": $("#price").val(),
+            "quantity": $("#quantity").val(),
+            "genre": genre.join(','),
+            "producer": $("#producer").val()
+        }
+
+        $.get("/Home/AddNewVideo", data)
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("AddNewVideo", "Home")',
+            async: false,
+            data: data
+        })
+
+
+        var files = document.getElementById('cover').files;
+        var dataImg = new FormData();
+        dataImg.append("cover", files[0]);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("AddCover", "Home")',
+            contentType: false,
+            processData: false,
+            data: dataImg,
+            async: false
+        });
+
+    }
+
+
+
+
+
+</script>

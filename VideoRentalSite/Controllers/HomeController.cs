@@ -219,5 +219,93 @@ namespace VideoRentalSite.Controllers
             return View(order);
         }
 
+        public ActionResult AddVideo()
+        {
+            return View();
+        }
+
+        public EmptyResult AddNewVideo()
+        {
+            video video = new video();
+            int video_id = (from m in db.video select m.video_id).ToList().Last() + 1;
+            video.video_id = video_id;
+            video.video_name = Request["name"];
+            video.video_year = Int32.Parse(Request["year"]);
+            video.video_description = Request["description"];
+            video.video_price_per_day = Double.Parse(Request["price"]);
+            video.video_country = Request["country"];
+            video.video_quantity = Int32.Parse(Request["quantity"]);
+            db.video.Add(video);
+            db.SaveChanges();
+
+            string [] genre = Request["genre"].Split(',');
+            int videoGenreId = (from m in db.videogenre select m.videogenre_id).ToList().Last();
+            for (int i = 0; i < genre.Length; i++)
+            {
+                videogenre videoGenre = new videogenre();
+                videoGenre.videogenre_id = ++videoGenreId;
+                videoGenre.videogenre_id_video = video_id;
+                videoGenre.videogenre_id_genre = Int32.Parse(genre[i]);
+
+                db.videogenre.Add(videoGenre);
+                db.SaveChanges();
+
+            }
+
+            string producer = Request["producer"];
+            producer findProducer = db.producer.SingleOrDefault(p => p.producer_name == producer);
+
+            videoproducer vp = new videoproducer();
+            vp.videoproducer_id = (from m in db.videoproducer select m.videoproducer_id).ToList().Last() + 1;
+            vp.videoproducer_id_video = video_id;
+            if (findProducer == null)
+            {
+                producer pr = new producer();
+                int id = (from m in db.producer select m.producer_id).ToList().Last() + 1;
+                pr.producer_id = id;
+                pr.producer_name = producer;
+
+                db.producer.Add(pr);
+                db.SaveChanges();
+
+
+                vp.videoproducer_id_producer = id;
+                
+
+            } else
+            {
+                vp.videoproducer_id_producer = findProducer.producer_id;
+                
+            }
+
+            db.SaveChanges();
+            return new EmptyResult();
+        }
+
+        public EmptyResult AddCover()
+        {
+            string path = "";
+            foreach (string file in Request.Files)
+            {
+                var upload = Request.Files[file];
+                if (upload != null)
+                {
+                    
+                    // получаем имя файла
+                    string fileName = System.IO.Path.GetFileName(upload.FileName);
+                    path = "/Content/img/" + fileName;
+                    // сохраняем файл в папку Files в проекте
+                    upload.SaveAs(Server.MapPath(path));
+                    
+                }
+            }
+
+            int videoId = (from m in db.video select m.video_id).ToList().Last();
+            video lastVideo = db.video.SingleOrDefault(v => v.video_id == videoId);
+            lastVideo.video_cover_url = path;
+            db.SaveChanges();
+            return new EmptyResult();
+        }
+
     }
 }
