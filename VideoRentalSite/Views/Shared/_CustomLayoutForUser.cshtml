@@ -6,27 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Bad+Script" rel="stylesheet">
-    <title>@ViewBag.Title – приложение ASP.NET</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/main.css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
-    <header>
-        <h1 class="headline">@Html.ActionLink("Прокат видеофильмов", "UserIndex", "Home")</h1>
-        <div class="navigation">
-            <ul class="nav">        
-               
-                <li>@Html.ActionLink("Корзина", "Basket", "Home")</li>
-                <li>@Html.ActionLink("Личный кабинет", "PersonalArea", "Home")</li>
-                <li>@Html.ActionLink("Выход", "Start", "Home")</li>
-            </ul>
-            @*@Html.Partial("_LoginPartial")*@
-            <div><p>Добро пожаловать, @Session["user_name"]</p></div>
-        </div>
-    </header>
-
+    <div class="header">
+        <header>
+            <h1 class="headline">@Html.ActionLink("Прокат видеофильмов", "UserIndex", "Home")</h1>
+            <div class="navigation">
+                <ul class="nav">
+                    <li>@Html.ActionLink("Корзина", "Basket", "Home")</li>
+                    <li>@Html.ActionLink("Личный кабинет", "PersonalArea", "Home")</li>
+                    <li>@Html.ActionLink("Выход", "Start", "Home")</li>
+                </ul>
+                <div class="greeting"><p>Добро пожаловать, @Session["user_name"]</p></div>
+            </div>
+        </header>
+    </div>
     <div class="wrapper">
 
         @RenderBody()

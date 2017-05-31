@@ -351,5 +351,21 @@ namespace VideoRentalSite.Controllers
             return RedirectToAction("OrderDetailsAdmin", new { id = Int32.Parse(Request["order_id"]) });
         }
 
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            video video = db.video.Find(id);
+            if (video == null)
+            {
+                return HttpNotFound();
+            }
+            db.video.Remove(video);
+            db.SaveChanges();
+            return RedirectToAction("AdminIndex");
+        }
+
     }
 }

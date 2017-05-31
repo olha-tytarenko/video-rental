@@ -18,18 +18,37 @@
            " FROM orders WHERE orders.order_id = " + orderId);
 
     }
-    string stat = videos.First().order_status;
+    string orderstatus = "";
+    string currentStatus = videos.First().order_status;
+    switch (currentStatus)
+    {
+        case "processing":
+            orderstatus = "Выполняется";
+            break;
+        case "confirmed":
+            orderstatus = "Подтвержден";
+            break;
+        case "client":
+            orderstatus = "Видеофильмы у клиента";
+            break;
+        case "returned":
+            orderstatus = "Завершен";
+            break;
+        default:
+            break;
+    }
+
+
     string [] status = new string[4] { "В обработке", "Подтвержден", "У клиента", "Заказ возвращен" };
 }
 
 <h2>Basket</h2>
 
 <div>
-    <h4>order</h4>
-    <hr />
-    <div><span>Статус заказа: @stat</span></div>
+
+    <div><span>Статус заказа: @orderstatus</span></div>
     <table>
-        <tr><th>Название фильма</th><th>Стоимость</th> </tr>
+        <tr><th>Название фильма</th></tr>
         @{
             foreach (var item in videos)
             {
@@ -54,9 +73,6 @@
     </div>
     <label style="visibility: hidden" id="order_id" value=@Model.order_id>@Model.order_id</label>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "UserIndex")
-</p>
 
 <script>
     function ChangeStatus() {

@@ -29,6 +29,7 @@
     string connectionString = @"VideoRentalDatabase";
     string genreName = "";
     string producerNames = "";
+    bool isInBasket = false;
     using (var db = Database.Open(connectionString))
     {
 
@@ -48,6 +49,16 @@
             producerNames += @item.producer_name + " ";
         }
 
+        IEnumerable<dynamic> videos = db.Query("SELECT basket.video_name" +
+               " FROM basket WHERE basket.user_id = " + Session["user_id"]);
+
+        foreach (var item in videos)
+        {
+            if (item.video_name == Model.video_name)
+            {
+                isInBasket = true;
+            }
+        }
     }
 }
 
@@ -57,14 +68,14 @@
             <img src=@Html.DisplayFor(model => model.video_cover_url) />
         </div>
         <div class="description-details">
-            <h2>@Html.DisplayFor(model => model.video_name)</h2>
+            <h2 class="film-name">@Html.DisplayFor(model => model.video_name)</h2>
             <ul class="list-description">
-                <li>Описание: @Html.DisplayFor(model => model.video_description)</li>
-                <li>Режиссер: @producerNames</li>
-                <li>Год выпуска: @Html.DisplayFor(model => model.video_year)</li>
-                <li>Жанр: @genreName</li>
-                <li>Страна: @Html.DisplayFor(model => model.video_country)</li>
-                <li>Цена: @Html.DisplayFor(model => model.video_price_per_day)</li>
+                <li><span>Описание:</span> <p class="description"> @Html.DisplayFor(model => model.video_description)</p></li>
+                <li><span>Режиссер:</span> @producerNames</li>
+                <li><span>Год выпуска:</span> @Html.DisplayFor(model => model.video_year)</li>
+                <li><span>Жанр:</span> @genreName</li>
+                <li><span>Страна:</span> @Html.DisplayFor(model => model.video_country)</li>
+                <li><span>Цена:</span> @Html.DisplayFor(model => model.video_price_per_day)</li>
 
             </ul>
         </div>
@@ -72,14 +83,21 @@
     <p id="video_id" style="visibility:hidden">@Html.DisplayFor(model => model.video_id)</p>
     <script type="text/jscript">
         function AddIntoBasket() {
-            alert("ddd");
+            //alert("ddd");
             var a = $.get("/Home/AddIntoBasket",{id : document.getElementById("video_id").innerHTML });
-            alert(a);
+            //alert(a);
+            $('#addInBasket').append('<p>(В корзине)</p>')
         };
     </script>
-    <div>
+    <div id="addInBasket">
         <p>
             <input type="button" onclick="AddIntoBasket()" value="Добавить в корзину" class="add" />
         </p>
+        @{
+            if (isInBasket)
+            {
+                <p>(В корзине)</p>
+            }
+        }
     </div>
 </div>

@@ -20,16 +20,32 @@
 
 }
 
-<div>
-    <h4>order</h4>
-    <hr />
+<div class="basket">
+    <h2 class="heading2">Заказы</h2>
     <table>
-        <tr><th>Дата заказа</th><th>Статус</th> </tr>
+        <tr><th>№ заказа</th><th>Дата заказа</th><th>Статус</th><th></th> </tr>
         @{
             foreach (var item in orders)
             {
-
-                <tr id=@item.order_data><td>@item.order_data</td><td> @item.order_status </td> <td>@Html.ActionLink("Подробнее", "OrderDetails", new { id = item.order_id })</td></tr>
+                string orderstatus = "";
+                string currentStatus = item.order_status;
+                switch (currentStatus)
+                {
+                    case "processing": orderstatus = "Выполняется";
+                        break;
+                    case "confirmed":
+                        orderstatus = "Подтвержден";
+                        break;
+                    case "client":
+                        orderstatus = "Видеофильмы у Вас";
+                        break;
+                    case "returned":
+                        orderstatus = "Завершен";
+                        break;
+                    default:
+                        break;
+                }
+                <tr id=@item.order_data class=@currentStatus><td>@item.order_id</td><td>@item.order_data</td><td> @orderstatus </td> <td class="mybtn">@Html.ActionLink("Подробнее", "OrderDetails", new { id = item.order_id })</td></tr>
 
             }
         }

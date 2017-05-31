@@ -4,7 +4,7 @@
     ViewBag.Title = "Basket";
 }
 @{
-    Layout = "~/Views/Shared/_CustomLayoutForUser.cshtml";
+    Layout = "~/Views/Shared/_CustomLayoutForAdmin.cshtml";
 }
 
 @{
@@ -21,15 +21,32 @@
 }
 
 <div>
-    <h4>order</h4>
-    <hr />
+
     <table>
-        <tr><th>Дата заказа</th><th>Статус</th> </tr>
+        <tr><th>№ Заказа</th><th>Дата заказа</th><th>Статус</th> </tr>
         @{
             foreach (var item in orders)
             {
-
-                <tr><td>@item.order_data</td><td> @item.order_status </td> <td>@Html.ActionLink("Подробнее", "OrderDetailsAdmin", new { id = item.order_id })</td></tr>
+                string orderstatus = "";
+                string currentStatus = item.order_status;
+                switch (currentStatus)
+                {
+                    case "processing":
+                        orderstatus = "Выполняется";
+                        break;
+                    case "confirmed":
+                        orderstatus = "Подтвержден";
+                        break;
+                    case "client":
+                        orderstatus = "Видеофильмы у клиента";
+                        break;
+                    case "returned":
+                        orderstatus = "Завершен";
+                        break;
+                    default:
+                        break;
+                }
+                <tr><td>@item.order_id</td><td>@item.order_data</td><td> @orderstatus </td> <td class="mybtn">@Html.ActionLink("Подробнее", "OrderDetailsAdmin", new { id = item.order_id })</td></tr>
 
             }
         }

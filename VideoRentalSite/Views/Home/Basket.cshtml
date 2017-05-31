@@ -21,36 +21,39 @@
     float totalPrice = 0;
 }
 
-<h2>Basket</h2>
-
-<div>
-    <h4>order</h4>
-    <hr />
-    <table>
-        <tr><th>Название фильма</th><th>Стоимость</th> </tr>
+<div class="basket">
+    <h2 class="heading2">Корзина</h2>
+    <table class="basket-table">
+        <tr><th>Название фильма</th><th>Стоимость</th> <th></th></tr>
         @{
             foreach (var item in videos)
             {
 
-                <tr id=@item.order_id><td> @item.video_name </td> <td>@item.video_price_per_day </td> <td><button type="button" onclick="DeleteFromBasket(this)" value=@item.order_id>Удалить</button></td></tr>
+                <tr id=@item.order_id><td> @item.video_name </td> <td class="price">@item.video_price_per_day </td> <td><button type="button" onclick="DeleteFromBasket(this)" value=@item.order_id>Удалить</button></td></tr>
                
                  totalPrice += @item.video_price_per_day;
             }
         }
-    <tr><td>Общая сумма</td><td>@totalPrice</td> </tr>
+        
     </table>
+    <div>Общая сумма: <span id="totalprice">@totalPrice</span></div>
     <button type="button" onclick="MakeOrder()">Заказать</button>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "UserIndex")
-</p>
 
 <script>
     function DeleteFromBasket(element){
 
         var a = $.get("/Home/DeleteFromBasket", { id: element.value });
         $("#" + element.value).remove();
-        alert(element.value);
+        
+        var $price = $(".price");
+        console.log($price);
+        var total = 0;
+        $price.each(function (index, elem) {
+            total += +(elem.textContent);
+        })
+        $('#totalprice').text(total);
+        console.log(total);
     }
 
     function MakeOrder() {
@@ -66,8 +69,6 @@
         });
         orderIds.length = length;
         console.log(orderIds);
-
-       //var a = $.get("/Home/MakeOrder", { ids: orderIds.join(',') });
         $.ajax({
             type: 'GET',
             url: '@Url.Action("MakeOrder", "Home")',

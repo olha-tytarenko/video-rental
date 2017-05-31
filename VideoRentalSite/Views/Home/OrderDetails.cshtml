@@ -22,13 +22,10 @@
     float totalPrice = 0;
 }
 
-<h2>Basket</h2>
-
-<div>
-    <h4>order</h4>
-    <hr />
+<div class="basket">
+    <h2 class="heading2">Детали заказа №@Model.order_id</h2>
     <table>
-        <tr><th>Название фильма</th><th>Стоимость</th> </tr>
+        <tr><th>Название фильма</th><th>Стоимость</th></tr>
         @{
             foreach (var item in videos)
             {
@@ -38,10 +35,7 @@
                 totalPrice += @item.video_price_per_day;
             }
         }
-        <tr><td>Общая сумма</td><td>@totalPrice</td> </tr>
+       
     </table>
-    <button type="button" onclick="MakeOrder()">Заказать</button>
+    <div>Общая сумма: <span id="totalprice">@totalPrice</span></div>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "UserIndex")
-</p>
