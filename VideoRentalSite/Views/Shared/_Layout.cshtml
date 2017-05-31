@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bad+Script" rel="stylesheet">
     <title>@ViewBag.Title – приложение ASP.NET</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/main.css")
@@ -13,13 +14,13 @@
 </head>
 <body>
     <header>
+        <h1 class="headline">@Html.ActionLink("Прокат видеофильмов", "Start", "Home")</h1>
         <div class="navigation">
             <ul class="nav">
-                <li>@Html.ActionLink("Главная", "Start", "Home")</li>
+               
                 <li>@Html.ActionLink("Регистрация", "Register", "Home")</li>
                 <li>@Html.ActionLink("Вход", "Login", "Home")</li>
             </ul>
-            @*@Html.Partial("_LoginPartial")*@
 
         </div>
     </header>

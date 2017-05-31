@@ -17,6 +17,7 @@
     @foreach (var item in Model)
     {
         <div class="video-details">
+
             <img src=@Html.DisplayFor(modelItem => item.video_cover_url) class="img-cover" />
             <div class="video-description">
                 <div><h2>@Html.DisplayFor(modelItem => item.video_name)</h2></div>
@@ -41,7 +42,7 @@
                 }
                 <div><span>Жанр: </span>@genreName</div>
                 
-                <div>@Html.ActionLink("Details", "VideoDetails", new { id = item.video_id }) </div>
+                <div class="details-button">@Html.ActionLink("Подробнее", "VideoDetails", new { id = item.video_id }) </div>
             </div>
         </div>
                     }

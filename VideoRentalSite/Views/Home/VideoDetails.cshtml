@@ -51,12 +51,7 @@
     }
 }
 
-
-<h2>Details</h2>
-
 <div>
-    <h4>video</h4>
-
     <div class="video-content-details">
         <div class="img-cover-details">
             <img src=@Html.DisplayFor(model => model.video_cover_url) />
@@ -69,7 +64,7 @@
                 <li>Год выпуска: @Html.DisplayFor(model => model.video_year)</li>
                 <li>Жанр: @genreName</li>
                 <li>Страна: @Html.DisplayFor(model => model.video_country)</li>
-                <li>Цена за сутки: @Html.DisplayFor(model => model.video_price_per_day)</li>
+                <li>Цена: @Html.DisplayFor(model => model.video_price_per_day)</li>
 
             </ul>
         </div>
@@ -82,11 +77,9 @@
             alert(a);
         };
     </script>
-    <p>
-        <input type="button" onclick="AddIntoBasket()"  value="Create" />
-    </p>
+    <div>
+        <p>
+            <input type="button" onclick="AddIntoBasket()" value="Добавить в корзину" class="add" />
+        </p>
+    </div>
 </div>
-<p class="clear">
-    @Html.ActionLink("Edit", "Edit", new { id = Model.video_id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

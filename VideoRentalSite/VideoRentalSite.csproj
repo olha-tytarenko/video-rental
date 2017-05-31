@@ -272,6 +272,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\main-video-styles.css" />
     <Content Include="Content\main.css" />
+    <Content Include="Content\register.css" />
+    <Content Include="Content\start.css" />
     <Content Include="Content\video-details.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

@@ -1,9 +1,50 @@
 ﻿
 @{
-    ViewBag.Title = "Start";
+    ViewBag.Title = "Прокат видеофильмов";
 }
 
-<h2>Добро пожаловать!</h2>
-<p>Вы находитесь на сайте проката видофильмов.</p>
-<div>@Html.ActionLink("Каталог", "Index", "Home")</div>
-
+@{ 
+    Layout = null;
+}
+@Styles.Render("~/Content/start.css")
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Bad+Script" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <header>
+        <h1 class="h1">Прокат видеофильмов</h1>
+        <div class="navigation">
+            <ul>
+                <li>@Html.ActionLink("Регистрация", "Register", "Home")</li>
+                <li>@Html.ActionLink("Вход", "Login", "Home")</li>
+            </ul>
+        </div>
+    </header>
+    <div class="wrapper">
+        <h2>Добро пожаловать!</h2>
+        <p>Вы находитесь на сайте проката видофильмов.</p>
+        <div class="manual">
+            <h2>Как заказать фильм?</h2>
+            <ul>
+                <li>Зарегистрироваться</li>
+                <li>Добавить понравившийся фильм в корзину</li>
+                <li>Оформить заказ</li>
+                <li>Забрать фильм из офиса, когда статус заказа перейдет в "Подтвержден"</li>
+            </ul>
+        </div>
+        <div class="nav2">
+            <ul>
+                <li>@Html.ActionLink("Зарегистрироваться", "Register", "Home")</li>
+                <li>@Html.ActionLink("Перейти к каталогу", "Index", "Home")</li>
+                
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
