@@ -1,0 +1,62 @@
+﻿@model VideoRentalSite.Models.video
+@using WebMatrix.Data;
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@{
+    Layout = "~/Views/Shared/_CustomLayoutForAdmin.cshtml";
+}
+
+@Styles.Render("~/Content/video-details.css")
+
+@{
+    string connectionString = @"VideoRentalDatabase";
+    string genreName = "";
+    string producerNames = "";
+    using (var db = Database.Open(connectionString))
+    {
+
+        IEnumerable<dynamic> genre = db.Query("SELECT genre.genre_name FROM genre, videogenre WHERE " +
+            "videogenre.videogenre_id_genre = genre.genre_id and videogenre.videogenre_id_video = " + Model.video_id);
+
+        foreach (var item in genre)
+        {
+            genreName += @item.genre_name + " ";
+        }
+
+        IEnumerable<dynamic> producer = db.Query("SELECT producer.producer_name FROM producer, videoproducer WHERE " +
+    "videoproducer.videoproducer_id_producer = producer.producer_id and videoproducer.videoproducer_id_video = " + Model.video_id);
+
+        foreach (var item in producer)
+        {
+            producerNames += @item.producer_name + " ";
+        }
+
+        IEnumerable<dynamic> videos = db.Query("SELECT basket.video_name" +
+               " FROM basket WHERE basket.user_id = " + Session["user_id"]);
+
+    }
+}
+
+<div>
+    <div class="video-content-details">
+        <div class="img-cover-details">
+            <img src=@Html.DisplayFor(model => model.video_cover_url) />
+        </div>
+        <div class="description-details">
+            <h2 class="film-name">@Html.DisplayFor(model => model.video_name)</h2>
+            <ul class="list-description">
+                <li><span>Описание:</span> <p class="description"> @Html.DisplayFor(model => model.video_description)</p></li>
+                <li><span>Режиссер:</span> @producerNames</li>
+                <li><span>Год выпуска:</span> @Html.DisplayFor(model => model.video_year)</li>
+                <li><span>Жанр:</span> @genreName</li>
+                <li><span>Страна:</span> @Html.DisplayFor(model => model.video_country)</li>
+                <li><span>Цена:</span> @Html.DisplayFor(model => model.video_price_per_day)</li>
+
+            </ul>
+        </div>
+    </div>
+
+</div>

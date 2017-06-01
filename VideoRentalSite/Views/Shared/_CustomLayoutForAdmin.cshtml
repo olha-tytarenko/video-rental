@@ -14,10 +14,14 @@
 <body>
     <div class="header">
         <header>
-            <h1 class="headline">@Html.ActionLink("Прокат видеофильмов", "AdminIndex", "Home")</h1>
-            <div class="navigation">
+            <div class="left-navigation">
                 <ul class="nav">
                     <li>@Html.ActionLink("Заказы", "Orders", "Home")</li>
+                    <li>@Html.ActionLink("Видеофильмы", "AdminIndex", "Home")</li>
+                </ul>
+            </div>
+            <div class="navigation">
+                <ul class="nav">
                     <li>@Html.ActionLink("Выход", "Start", "Home")</li>
                 </ul>
                 <div class="greeting"><p>Добро пожаловать, @Session["user_name"]</p></div>

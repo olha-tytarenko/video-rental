@@ -267,7 +267,7 @@ namespace VideoRentalSite.Controllers
             }
 
             string producer = Request["producer"];
-            producer findProducer = db.producer.SingleOrDefault(p => p.producer_name == producer);
+            producer findProducer = db.producer.FirstOrDefault(p => p.producer_name == producer);
 
             videoproducer vp = new videoproducer();
             vp.videoproducer_id = (from m in db.videoproducer select m.videoproducer_id).ToList().Last() + 1;
@@ -291,7 +291,7 @@ namespace VideoRentalSite.Controllers
                 vp.videoproducer_id_producer = findProducer.producer_id;
                 
             }
-
+            db.videoproducer.Add(vp);
             db.SaveChanges();
             return new EmptyResult();
         }
@@ -347,7 +347,27 @@ namespace VideoRentalSite.Controllers
             order order = db.order.SingleOrDefault(o => o.order_id == id);
             order.order_status = Request["order_status"].ToString();
             db.SaveChanges();
+            string status = Request["order_status"].ToString();
+            if (status == "user" || status == "returned")
+            {
+                var listorder = db.videolist.Where(o => o.videolist_id_order == id);
 
+                foreach (var item in listorder)
+                {
+                    video video = db.video.SingleOrDefault(o => o.video_id == item.videolist_id_video);
+                    if (status == "user")
+                    {
+                        video.video_quantity -= 1;
+                    } else
+                    {
+                        video.video_quantity += 1;
+                    }
+                    
+                }
+            }
+
+
+            db.SaveChanges();
             return RedirectToAction("OrderDetailsAdmin", new { id = Int32.Parse(Request["order_id"]) });
         }
 
@@ -365,6 +385,25 @@ namespace VideoRentalSite.Controllers
             db.video.Remove(video);
             db.SaveChanges();
             return RedirectToAction("AdminIndex");
+        }
+
+        public ActionResult AdminVideoDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            video video = db.video.Find(id);
+            if (video == null)
+            {
+                return HttpNotFound();
+            }
+            return View(video);
+        }
+
+        public ActionResult AdminMain()
+        {
+            return View();
         }
 
     }

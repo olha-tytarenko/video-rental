@@ -401,6 +401,8 @@
     <Content Include="Views\Home\AddVideo.cshtml" />
     <Content Include="Views\Home\Orders.cshtml" />
     <Content Include="Views\Home\OrderDetailsAdmin.cshtml" />
+    <Content Include="Views\Home\AdminVideoDetails.cshtml" />
+    <Content Include="Views\Home\AdminMain.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

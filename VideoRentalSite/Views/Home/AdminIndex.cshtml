@@ -21,11 +21,15 @@
         <th>
             Описание
         </th>
+    
+        <th>
+            Страна
+        </th>
         <th>
             Цена
         </th>
         <th>
-            Страна
+            Количество
         </th>
         <th></th>
     </tr>
@@ -41,14 +45,19 @@
         <td>
             @Html.DisplayFor(modelItem => item.video_description)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.video_price_per_day)
-        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.video_country)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.video_price_per_day)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.video_quantity)
+        </td>
+        <td>
             @Html.ActionLink("Редактировать", "AdminEdit", new { id=item.video_id })
+            @Html.ActionLink("Подробнее", "AdminVideoDetails", new { id = item.video_id })
         </td>
     </tr>
 }

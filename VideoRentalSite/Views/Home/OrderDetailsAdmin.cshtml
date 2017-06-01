@@ -28,7 +28,7 @@
         case "confirmed":
             orderstatus = "Подтвержден";
             break;
-        case "client":
+        case "user":
             orderstatus = "Видеофильмы у клиента";
             break;
         case "returned":
@@ -69,7 +69,7 @@
 
             }
         </select>
-        <button type="button" onclick="ChangeStatus()">Заказать</button>
+        <button type="button" onclick="ChangeStatus()">Изменить</button>
     </div>
     <label style="visibility: hidden" id="order_id" value=@Model.order_id>@Model.order_id</label>
 </div>

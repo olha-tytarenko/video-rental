@@ -1,0 +1,26 @@
+﻿@{ 
+    Layout = "~/Views/Shared/_CustomLayoutForAdmin.cshtml";
+}
+@{
+    ViewBag.Title = "AdminMain";
+}
+<div class="header">
+    <header>
+        <h1 class="headline">@Html.ActionLink("Прокат видеофильмов", "UserIndex", "Home")</h1>
+        <div class="navigation">
+            <ul class="nav">
+                <li>@Html.ActionLink("Выход", "Start", "Home")</li>
+            </ul>
+            <div class="greeting"><p>Добро пожаловать, @Session["user_name"]</p></div>
+        </div>
+    </header>
+</div>
+<div class="adminmain">
+    <div class="link">
+        @Html.ActionLink("Работа с видеофильмами", "AdminIndex")
+    </div>
+    <div class="link">
+        @Html.ActionLink("Работа с заказами", "Orders")
+    </div>
+</div>
+

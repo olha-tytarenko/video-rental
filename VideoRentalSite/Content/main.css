@@ -76,16 +76,28 @@ header{
 }
 
 .navigation{
-    position: absolute;
     right: 0;
+}
+.navigation-left{
 
+   left: 0;
+
+}
+
+.navigation, .left-navigation{
+        position: absolute;
     bottom: 20%;
+    font-size: 20px;
 }
 
 .nav{
     display: inline;
     bottom: 20%;
     margin-right: 60px;
+}
+
+.left-navigation .nav{
+     margin-left: 60px;
 }
 .nav li a{
         margin: 0;
@@ -136,6 +148,7 @@ input[type=submit]{
     margin: 65px auto 0;
     display: block;
 }
+
 .label{
     padding: 10px 0;
 }
@@ -152,6 +165,13 @@ input[type=submit]{
     border: solid 1px;
 }
 
+.textarea{
+border-radius: 4px;
+width: 100%;
+    border: solid 1px;
+    height: 80px;
+}
+
 .button{
     display: block;
     margin-top: 10px;
@@ -165,6 +185,7 @@ input[type=submit]{
 .greeting p{
     color: rgb(255, 255, 255);
     text-align: right;
+    font-size: 14px;
 }
 
 li span, div span{
@@ -237,6 +258,30 @@ tr.odd-row td {
 .edit-link{
     display: inline-block;
     padding: 20px;
+    margin: 0 20px 20px 20px;
     border-radius: 4px;
     background-color: rgb(203, 229, 241);
+}
+
+.adminmain{
+    width: 300px;
+    margin: 0 auto;
+}
+
+.link{
+    text-align: center;
+}
+
+.link a{
+    display: inline-block;
+    padding: 30px;
+    margin: 50px;
+    background-color: rgb(203, 229, 241);
+    border-radius: 4px;
+        height: 30px;
+    width: 120px;
+}
+
+.link a:hover{
+     background-color: rgb(180, 229, 231);
 }
